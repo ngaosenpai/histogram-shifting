@@ -1,0 +1,162 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible', content='ie=edge')
+  title Demo Steganography
+  style.
+    body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F1FAEE;
+    height: 100vh;
+    width: 100vw
+    }
+    .main{
+    width: 30%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+    //- overflow-y : scroll;
+    padding: 0 20px
+    }
+    .container {
+    min-width: 300px;
+    min-height: 200px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: gray;
+    margin-top: 15px;
+    }
+    #preview {
+    display: none;
+    }
+    .encrypt, .decrypt{
+    display: flex;
+    width: 100%;
+    margin-top: 1em;
+    }
+    #rawText{
+    margin-right: 10px;
+    flex-grow: 1;
+    height: 30px;
+    font-size: 16px;
+    border: 2px solid gray;
+    padding: 0 10px;
+    border-radius: 10px;
+    outline: none;
+    }
+    .decrypt{
+    flex-direction: column;
+    }
+    .decrypt > button{
+    margin-bottom: 10px;
+    }
+    #btn, #btn2, #btn3{
+    border: 2px solid transparent;
+    border-radius: 10px;
+    min-height: 30px;
+    font-weight: bold;
+    background-color: #A8DADC;
+    color: black;
+    outline: none;
+    padding: 0 10px;
+    }
+    #btn:hover, #btn2:hover{
+    background-color: #457B9D;
+    color: white;
+    }
+    #btn:active, #btn2:active{
+    background-color: #A8DADC;
+    border: 2px solid #1D3557;
+    color: black;
+    }
+    #transText{
+    min-height: 100px;
+    opacity: 0;
+    }
+    footer{
+        background-color : black;
+        width: 100vw;
+        height : 50px;
+        display: flex;
+        justify-content: center ;
+        align-items: center ;
+    }
+    .wrap{
+        display: flex;
+        flex-grow: 1;
+        width: 100%;
+        justify-content: space-evenly;
+        overflow-y: hidden;
+    }
+    .canvas-wrap{
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+    #originHist, 
+    #shiftedHist, 
+    #embededHist, 
+    #embededHistDec, 
+    #recoveriedHist {
+        padding: 2px;
+        border: 1px solid black;
+        margin-bottom: 5px;
+    }
+    #secret-key{
+        max-width: 300px;
+        padding: 10px;
+        word-break: break-all
+    }
+
+body
+    h1(style='color: #E63946') Demo d&#x1EF1; &aacute;n Gi&#x1EA5;u Tin Trong &#x1EA2;nh
+    div.wrap
+        section.main
+            input#inFile(type='file', name='inFile', style='width: 100%;')
+            .container
+                span#defaultText  Preview file 
+                canvas#preview
+            .encrypt
+                input#rawText(type='text', placeholder='Type your secret message...')
+                button#btn Hide !!!
+            div#secret-key
+            .decrypt
+                button#btn2 Get secret message
+                #transText
+            //- .decrypt
+            //-     button#btn3 Get PNG32
+        
+        //- section show histogram
+        section.canvas-wrap
+            div Histogram of origin image
+            canvas#originHist(width="512px", height="200px")
+            div Histogram after shifting
+            canvas#shiftedHist(width="512px", height="200px")
+            div Histogram of embeded image
+            canvas#embededHist(width="512px", height="200px")
+            div Histogram of embeded image - decrypting
+            canvas#embededHistDec(width="512px", height="200px")
+            div Histogram of recoveried image
+            canvas#recoveriedHist(width="512px", height="200px")
+
+    footer
+        span(style='color: #A8DADC; margin-right: 50px;')
+            | Nh&oacute;m: L&ecirc; Anh H&agrave;o &amp; Tr&#x1EA7;n B&#x1EA3;o Long.
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
+    //- script(src='https://cdn.socket.io/4.4.1/socket.io.min.js', integrity='sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H', crossorigin='anonymous')
+    script(src='index.js')
