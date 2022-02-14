@@ -4,11 +4,11 @@ const multer  = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 // const parser = require('exif-parser')
-const ExifReader = require('exifreader');
-const Jimp = require('jimp');
+// const ExifReader = require('exifreader');
+// const Jimp = require('jimp');
 const sharp = require('sharp');
-const { buffer } = require('sharp/lib/is')
-const { histogram } = require('jimp')
+// const { buffer } = require('sharp/lib/is')
+// const { histogram } = require('jimp')
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -35,11 +35,9 @@ app.post("/api/image", upload.single("file"), (req, res) => {
     const sharpData = sharp(data)
     // sharpData.toBuffer().then(console.log)
     sharpData.raw().toBuffer({resolveWithObject: true}).then(content => {
-        // console.log(content)
+
         const { data, info } = content   //data : Buffer
-        // console.log(info)
         const { width, height, channels } = info
-        // const bitMap = getBitMapFromBuffer(data)
 
         const histogram = getHistogram(data, width, height, channels)
 
@@ -51,22 +49,7 @@ app.post("/api/image", upload.single("file"), (req, res) => {
 
         const shiftedImage = shifting(data, width, height, channels, peakPoint, delta)
         const shiftedHistogram = getHistogram(shiftedImage, width, height, channels)
-        
-        // console.log(
-        //     histogram[zeroPoint-1],
-        //     histogram[zeroPoint],
-        //     histogram[zeroPoint+1],
-        //     histogram[vacantPoint],
-        //     histogram[peakPoint]
-        // )
-        // console.log(
-        //     shiftedHistogram[zeroPoint-1],
-        //     shiftedHistogram[zeroPoint],
-        //     shiftedHistogram[zeroPoint+1],
-        //     shiftedHistogram[vacantPoint],
-        //     shiftedHistogram[peakPoint]
-        // )
-        // console.log(message)
+ 
         const binMess = getBinaryOfMess(message)
         const embededImage = embeding(shiftedImage, width*height, channels, peakPoint, delta, binMess)
         const embededHistogram = getHistogram(embededImage, width, height, channels)
