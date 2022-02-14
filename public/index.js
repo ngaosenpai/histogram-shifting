@@ -19,6 +19,13 @@ inFile.addEventListener("change", (e) => {
     
     file = e.target.files[0];
     if (file) {
+      const fileNamePart = file.name.split(".")
+      const fileExt = fileNamePart[fileNamePart.length-1]
+      if(fileExt.toLowerCase() != "png"){
+        alert("Just accept PNG file!")
+        return
+      }
+
       const img = new Image();
       preCanvas.style.display = "block";
       document.getElementById("defaultText").style.display = "none";

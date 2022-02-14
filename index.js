@@ -259,9 +259,7 @@ const embeding = (buffer, size, channels, peakPoint, delta, message) => {
         if(channels == 4){
             bitMap[i+3] = buffer[i+3]
         }
-
     }
-
     return bitMap
 }
 
@@ -284,10 +282,8 @@ const decrypting = (buffer, size, channels, infor) => {
         if(gray == vacantPoint && binMess.length != messageSize){
             binMess.push('1')
         }
-
         if(binMess.length == messageSize) break;
     }
-
     let message = ''
     for(let i = 0; i <= binMess.length-8; i += 8){
         let bin = ''
@@ -299,7 +295,6 @@ const decrypting = (buffer, size, channels, infor) => {
         bin += binMess[i+5]
         bin += binMess[i+6]
         bin += binMess[i+7]
-
         const code = parseInt(bin, 2);
         message += String.fromCharCode(code)
     }
